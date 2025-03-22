@@ -1,25 +1,14 @@
 #!/bin/bash
 cd /var/www/my-node-app
+
+# Install dependencies (if needed)
 npm install
-npm start
+
+# Start the application using PM2
 pm2 start app.js --name "my-node-app"
+
+# Save the PM2 process list to ensure it restarts on reboot
 pm2 save
+
+# Set up PM2 startup script (if not already done)
 pm2 startup
-
-const express = require('express');
-const app = express();
-
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-});
-
-// Only start the server if this file is run directly
-if (require.main === module) {
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-        console.log(`App listening at http://localhost:${PORT}`);
-    });
-}
-
-module.exports = app; // Export for testing
-
