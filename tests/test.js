@@ -1,10 +1,12 @@
 const request = require('supertest');
-const app = require('../app.js');
+const app = require('../app'); // Ensure you're requiring the app file
 
 describe('GET /', () => {
-  it('responds with Hello, World!', async () => {
-    const response = await request(app).get('/');
-    expect(response.statusCode).toBe(200);
-    expect(response.text).toContain('Hello, World!');
-  });
+    it('responds with Hello, World!', (done) => {
+        request(app)
+            .get('/')
+            .expect(200)
+            .expect('Hello, World!', done);
+    });
 });
+
